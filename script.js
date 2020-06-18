@@ -1,6 +1,6 @@
 // Object "optionSources;" Arrays listed within; functionArray will support all concat arrays. 
 var optionSources = {
-  //store possible types of character arrays to include in password
+  // store possible types of character arrays to include in password
   uppercaseLetters: ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", ],
   lowercaseLetters: ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", ],
   numbers: ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"],
@@ -20,22 +20,22 @@ function infoGrab() {
   // confirm true/false for uppercase letters
   var uppercaseResponse = confirm("Would you like to use uppercase letters?");
 
-  //confirm true/false for lowercase letters
+  // confirm true/false for lowercase letters
   var lowercaseResponse = confirm("Would you like to use lowercase letters?");
 
-  //confirm true/false for numbers
+  // confirm true/false for numbers
   var numericalResponse = confirm("Would you like to use numerical values?");
 
-  //confirm true/false for special characters
+  // confirm true/false for special characters
   var specialCharactersResponse = confirm("Would you like to use special characters?");
 
-  // If user does NOT choose any of the choices, they are told to do so again and the page resets.
+  // if user does NOT choose any of the choices, they are told to do so again and the page resets.
   if (uppercaseResponse === false && lowercaseResponse === false && numericalResponse === false && specialCharactersResponse === false) {
     alert("You need to choose at least one character type.");
     return;
   };
 
-  // Collection of the user inputs with repurposed variable names 
+  // collection of the user inputs with repurposed variable names 
   var collectedResponse = {
     length: lengthResponse,
     uppercase: uppercaseResponse,
@@ -54,7 +54,7 @@ function generateRandom(array) {
   var randIndex = Math.floor(Math.random() * (array.length));
   // from index, collect character
   var collectedCharacter = array[randIndex];
-  //return random character
+  // return random character
   return collectedCharacter;
 }
 
@@ -70,19 +70,23 @@ function generatePassword() {
   // store the possible arrays for character types
   var functionArray = [];
 
+  // if the user chooses to use uppercase letters, push uppercase array
   if (criteria.uppercase === true) {
     functionArray = functionArray.concat(optionSources.uppercaseLetters);
     generatedCh.push(generateRandom(optionSources.uppercaseLetters));
   }
 
+  // if the user chooses to use lowercase letters, push lowercase array
   if (criteria.lowercase === true) {
     functionArray = functionArray.concat(optionSources.lowercaseLetters);
     generatedCh.push(generateRandom(optionSources.lowercaseLetters));
   }
+  // if the user chooses to use numbers, push numbers array
   if (criteria.numbers === true) {
     functionArray = functionArray.concat(optionSources.numbers);
     generatedCh.push(generateRandom(optionSources.numbers));
   }
+  // if the user chooses to use special characters, push special characters array
   if (criteria.special === true) {
     functionArray = functionArray.concat(optionSources.specialCharacters);
     generatedCh.push(generateRandom(optionSources.specialCharacters));
@@ -96,19 +100,21 @@ function generatePassword() {
     result.push(chosen);
   }
 
-  // add in generated characters
+  // loops through array of generated characters
   for (var i = 0; i < generatedCh.length; i++) {
+    // adds gerneratedCh[i] into result[i]
     result[i] = generatedCh[i];
   }
-  // Join strings all generated characters into a string
-  // Returns this string to generatePassword
+  
+  // 1 - creates a string from the array in result []
+  // 2 - returns this value to generatePassword
   return result.join('');
 }
 
-// Grab the query button for event listenr
+// grab the query button for event listenr
 var generateBtn = document.querySelector("#generate");
 
-// Write password to the #password input
+// write password to the #password input
 function writePassword() {
   // var that grabbed generated password
   var password = generatePassword();
