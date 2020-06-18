@@ -1,10 +1,10 @@
 // Object "optionSources;" Arrays listed within; functionArray will support all concat arrays. 
 var optionSources = {
-  functionArray: [],
+  //store possible types of character arrays to include in password
   uppercaseLetters: ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", ],
   lowercaseLetters: ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", ],
   numbers: ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"],
-  specialCharacters: ["\\", ".", "+", "*", "?", "[", "^", "]", "$", "(", ")", "{", "}", "=", "!", "<", ">", "|", ":", "-", ],
+  specialCharacters: [".", "+", "*", "?", "[", "^", "]", "$", "(", ")", "{", "}", "=", "!", "<", ">", "|", ":", "-", ],
 };
 
 // function that prompts the password criteria from the user
@@ -43,7 +43,7 @@ function infoGrab() {
     numbers: numericalResponse,
     special: specialCharactersResponse,
   };
-  // return 
+  // return collectedResponse to infoGrab
   return collectedResponse;
 }
 
@@ -51,7 +51,7 @@ function infoGrab() {
 // Random character generator
 function generateRandom(array) {
   // collect random index
-  var randIndex = Math.floor(Math.random() * array.length);
+  var randIndex = Math.floor(Math.random() * (array.length));
   // from index, collect character
   var collectedCharacter = array[randIndex];
   //return random character
@@ -62,55 +62,47 @@ function generateRandom(array) {
 function generatePassword() {
   // pull in criteria for password
   var criteria = infoGrab();
-// store collection that gurantees at least one of the needed character type
+  // store password 
+  var result = [];
+  console.log(result);
+  // store collection that gurantees at least one of the needed character type
   var generatedCh = [];
-  
+  // store the possible arrays for character types
+  var functionArray = [];
 
   if (criteria.uppercase === true) {
-    optionSourcses.functionArray = optionSources.functionArray.concat(optionSources.uppercaseLetters);
-    generatedCh.push(generateRandom(uppercaseLetters));
-  }
-  if (criteria.lowercase === true) {
-    optionSources.functionArray = optionSources.functionArray.concat(optionSources.lowercaseLetters);
-    generatedCh.push(generatePassword(lowercaseLetters));
-  }
-  if (criteria.numbers === true) {
-    optionSources.functionArray = optionSources.functionArray.concat(optionSources.numbers);
-    generatedCh.push(generateRandom(numbers));
-  }
-  if (criteria.special === true) {
-    optionSources.functionArray = optionSources.functionArray.concat(optionSources.specialCharacters);
-    gerantedCh.push(generateRandom(specialCharacters));
+    functionArray = functionArray.concat(optionSources.uppercaseLetters);
+    generatedCh.push(generateRandom(optionSources.uppercaseLetters));
   }
 
-// groups all  generated characters together
+  if (criteria.lowercase === true) {
+    functionArray = functionArray.concat(optionSources.lowercaseLetters);
+    generatedCh.push(generateRandom(optionSources.lowercaseLetters));
+  }
+  if (criteria.numbers === true) {
+    functionArray = functionArray.concat(optionSources.numbers);
+    generatedCh.push(generateRandom(optionSources.numbers));
+  }
+  if (criteria.special === true) {
+    functionArray = functionArray.concat(optionSources.specialCharacters);
+    generatedCh.push(generateRandom(optionSources.specialCharacters));
+  }
+
+  // create amount of characters equal to chosen criteria
+  for (var i = 0; i < criteria.length; i++) {
+    // generate a combination of characters from the arrays that the user has chosen
+    var chosen = generateRandom(functionArray);
+    // push these characters into "result"
+    result.push(chosen);
+  }
+
+  // add in generated characters
   for (var i = 0; i < generatedCh.length; i++) {
     result[i] = generatedCh[i];
   }
-
-// Join strings all generated characters into a string
-// Returns this string to generatePassword
-  return generatedCh.join('');
-}
-
-// Returns the object of "collectedResponse" to infoGrab 
-return collectedResponse;
-}
-
-// Undefined when this function runs. 
-// function generatePassword(criteria) {
-//   var pulledReturn = criteria
-// }
-
-// From the given array, randomly select a singular index and return that value to collectedCharacter.
-function generateRandom(array) {
-  var randIndex = Math.floor(Math.random() * array.length);
-  var collectedCharacter = array[randIndex];
-  return collectedCharacter;
-}
-
-function generatePassword(criteria) {
-  var pulledReturn = criteria
+  // Join strings all generated characters into a string
+  // Returns this string to generatePassword
+  return result.join('');
 }
 
 // Grab the query button for event listenr
@@ -128,8 +120,3 @@ function writePassword() {
 
 // event listener to start the password creation
 generateBtn.addEventListener("click", writePassword);
-
-
-// for (var i = 0; i < generatedCh.length; i++) {
-//   generatedCh.push(generateRandom(criteria.functionArray));
-// }
