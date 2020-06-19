@@ -11,7 +11,7 @@ var optionSources = {
 // ensures that standards are met through use of conditional statements
 function infoGrab() {
   // prompts the user
-  var lengthResponse = parseInt(prompt("How many characters would you like?"));
+  var lengthResponse = parseInt(prompt("How long would you like your password?"));
   // verifies the correct length
   if (lengthResponse < 8 || lengthResponse > 129 || isNaN(lengthResponse) === true) {
     alert("Passwords much be between 8-128 Characters.");
