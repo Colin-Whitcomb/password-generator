@@ -11,27 +11,27 @@ var optionSources = {
 // ensures that standards are met through use of conditional statements
 function infoGrab() {
   // prompts the user
-  var lengthResponse = parseInt(prompt("How long would you like your password?"));
+  var lengthResponse = parseInt(prompt("How many characters would you like to include? Note: it must be between 8-128."));
   // verifies the correct length
   if (lengthResponse < 8 || lengthResponse > 129 || isNaN(lengthResponse) === true) {
     alert("Passwords much be between 8-128 Characters.");
     return;
   }
   // confirm true/false for uppercase letters
-  var uppercaseResponse = confirm("Would you like to use uppercase letters?");
+  var uppercaseResponse = confirm("Would you like to use uppercase letters? If so, press OK.");
 
   // confirm true/false for lowercase letters
-  var lowercaseResponse = confirm("Would you like to use lowercase letters?");
+  var lowercaseResponse = confirm("Would you like to use lowercase letters? If so, press OK.");
 
   // confirm true/false for numbers
-  var numericalResponse = confirm("Would you like to use numerical values?");
+  var numericalResponse = confirm("Would you like to use numerical values? If so, press OK.");
 
   // confirm true/false for special characters
-  var specialCharactersResponse = confirm("Would you like to use special characters?");
+  var specialCharactersResponse = confirm("Would you like to use special characters? If so, press OK.");
 
   // if user does NOT choose any of the choices, they are told to do so again and the page resets.
   if (uppercaseResponse === false && lowercaseResponse === false && numericalResponse === false && specialCharactersResponse === false) {
-    alert("You need to choose at least one character type.");
+    alert("Sorry, but you must choose at least one character type.");
     return;
   };
 
